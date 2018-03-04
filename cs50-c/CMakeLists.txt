@@ -5,7 +5,10 @@ set(CMAKE_C_STANDARD 99)
 
 set(EXECUTABLE_NAME cs50)
 
-set(SOURCE_FILES main.c)
+set(SOURCE_FILES
+        main.c
+        constants.h
+        )
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 

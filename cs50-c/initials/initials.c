@@ -6,7 +6,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 #include <ctype.h>
 
 void extractInitials(char *initials, const char *name) {

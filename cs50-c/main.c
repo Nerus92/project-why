@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "initials/initials.h"
-
-#define MAX_NAME_SIZE 256
-#define MAX_INITIALS_SIZE 16
+#include "constants.h"
 
 int main() {
     char *name = malloc(sizeof(char) * MAX_NAME_SIZE);
