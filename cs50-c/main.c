@@ -3,7 +3,7 @@
 #include "initials/initials.h"
 #include "constants.h"
 
-int main() {
+int run_initials() {
     char *name = malloc(sizeof(char) * MAX_NAME_SIZE);
     char *initials = malloc(sizeof(char) * MAX_INITIALS_SIZE);
 
@@ -23,4 +23,12 @@ int main() {
     free(initials);
 
     return 0;
+}
+
+int run_passwords() {
+    return 0;
+}
+
+int main() {
+    run_passwords();
 }
