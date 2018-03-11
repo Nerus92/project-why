@@ -4,10 +4,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory.h>
 #include "passwords.h"
 
 int run_password(int argc, char **argv) {
-    return 1;
+    if(argc != 1) {
+        return 1;
+    }
+    crack_password(argv[0]);
+    return 0;
 }
 
 char* read_file(const char *filepath) {
@@ -66,6 +71,12 @@ char* read_file(const char *filepath) {
     return output;
 }
 
-void crack_password() {
+void crack_password(char *encrypted_pwd) {
+    char *clear_pwd = malloc(sizeof(char) * 9);
 
+    strcpy(clear_pwd, "TESTPWD");
+
+    printf(clear_pwd);
+    printf("\n");
+    free(clear_pwd);
 }

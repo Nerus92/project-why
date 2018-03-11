@@ -7,6 +7,6 @@
 
 int run_password(int argc, char **argv);
 char* read_file(const char *filepath);
-void crack_password();
+void crack_password(char *encrypted_pwd);
 
 #endif //CS50_PASSWORDS_H

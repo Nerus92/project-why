@@ -6,7 +6,7 @@
 
 extern "C" int run_password(int argc, char **argv);
 extern "C" char* read_file(const char *filepath);
-extern "C" void crack_passwords();
+extern "C" void crack_passwords(char *encrypted_pwd);
 
 TEST(passwordsTests, testReadFromFile) {
     char test_file_content[200] = "caesar:50zPJlUFIYY0o\n"
@@ -31,6 +31,14 @@ TEST(passwordsTests, testShouldReturnFailIfNoArgument) {
 
 TEST(passwordsTests, testShouldReturnFailIfMoreThanOneArgument) {
     ASSERT_NE(0, run_password(2, nullptr));
+}
+
+TEST(passwordsTests, testShouldReturnSuccessIfOneArgument) {
+    char **argv = (char **) malloc(sizeof(char**) * 1);
+    char *pwd = "50zPJlUFIYY0o\n";
+    argv[0] = pwd;
+    ASSERT_EQ(0, run_password(1, argv));
+    free(argv);
 }
 
 //TEST(passwordsTests, testOutputScrambling) {
