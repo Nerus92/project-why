@@ -6,6 +6,10 @@
 #include <stdlib.h>
 #include "passwords.h"
 
+int run_password(int argc, char **argv) {
+    return 1;
+}
+
 char* read_file(const char *filepath) {
     FILE  *file;
     size_t file_size;
@@ -62,6 +66,6 @@ char* read_file(const char *filepath) {
     return output;
 }
 
-void crack_passwords() {
+void crack_password() {
 
 }

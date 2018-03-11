@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 
+extern "C" int run_password(int argc, char **argv);
 extern "C" char* read_file(const char *filepath);
 extern "C" void crack_passwords();
 
@@ -18,10 +19,18 @@ TEST(passwordsTests, testReadFromFile) {
             "tmacwilliam:50WZ/Wy2GdA1Y\n"
             "zamyla:50lMLvy/mlPIE\n";
     char* computed_file_content;
-    
+
     computed_file_content = read_file("/Users/jpchatain/Documents/dev/Perso/project-why/repo/cs50-c/res/passwd");
     ASSERT_STREQ(test_file_content, computed_file_content);
     free(computed_file_content);
+}
+
+TEST(passwordsTests, testShouldReturnFailIfNoArgument) {
+    ASSERT_NE(0, run_password(0, nullptr));
+}
+
+TEST(passwordsTests, testShouldReturnFailIfMoreThanOneArgument) {
+    ASSERT_NE(0, run_password(2, nullptr));
 }
 
 //TEST(passwordsTests, testOutputScrambling) {

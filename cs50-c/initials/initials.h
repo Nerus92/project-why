@@ -6,5 +6,6 @@
 #define CS50_INITIALS_H
 
 void extractInitials(char *initials, const char *name);
+int run_initials();
 
 #endif //CS50_INITIALS_H

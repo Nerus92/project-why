@@ -1,34 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "initials/initials.h"
-#include "constants.h"
+#include "initials.h"
+#include "passwords.h"
 
-int run_initials() {
-    char *name = malloc(sizeof(char) * MAX_NAME_SIZE);
-    char *initials = malloc(sizeof(char) * MAX_INITIALS_SIZE);
-
-    if (name == NULL || initials == NULL) {
-        printf("Not enough memory available, exiting.");
-        return 1;
-    }
-
-    printf("Name: ");
-    fgets(name, MAX_NAME_SIZE, stdin);
-
-    extractInitials(initials, name);
-
-    printf("Hello, %s", initials);
-
-    free(name);
-    free(initials);
-
-    return 0;
-}
-
-int run_passwords() {
-    return 0;
-}
-
-int main() {
-    run_passwords();
+int main(int argc, char **argv) {
+//    run_initials();
+    return run_password(argc, argv);
 }
