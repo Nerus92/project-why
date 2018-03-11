@@ -6,9 +6,10 @@
 #include <stdlib.h>
 #include "passwords.h"
 
-long read_file(const char *filepath, char **output) {
+char* read_file(const char *filepath) {
     FILE  *file;
     size_t file_size;
+    char* output;
 
     // Open the file
     file = fopen(filepath, "rb");
@@ -31,8 +32,8 @@ long read_file(const char *filepath, char **output) {
     }
 
     // Allocate buffer to contain the whole thing
-    *output = (char *) malloc(sizeof(char) * (file_size + 1));
-    if (NULL == *output) {
+    output = (char *) malloc(sizeof(char) * (file_size + 1));
+    if (NULL == output) {
 //        printf("Could not allocate memory buffer\n");
         return -1L;
     }
@@ -43,12 +44,12 @@ long read_file(const char *filepath, char **output) {
         return -1L;
     }
 
-    file_size = fread(*output, sizeof(char), file_size, file);
+    file_size = fread(output, sizeof(char), file_size, file);
     if ( ferror( file ) != 0 ) {
 //        printf("Error reading file\n");
 //        free(*output);
     } else {
-        (*output)[file_size++] = '\0';
+        (output)[file_size++] = '\0';
     }
 
     // Close file
@@ -58,7 +59,7 @@ long read_file(const char *filepath, char **output) {
         return -1L;
     }
 
-    return (long) file_size;
+    return output;
 }
 
 void crack_passwords() {

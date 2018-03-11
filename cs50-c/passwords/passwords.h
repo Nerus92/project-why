@@ -5,7 +5,7 @@
 #ifndef CS50_PASSWORDS_H
 #define CS50_PASSWORDS_H
 
-long read_file(const char *filepath, char **output);
+char* read_file(const char *filepath);
 void crack_passwords();
 
 #endif //CS50_PASSWORDS_H
