@@ -7,7 +7,7 @@ int run_initials() {
     char *name = malloc(sizeof(char) * MAX_NAME_SIZE);
     char *initials = malloc(sizeof(char) * MAX_INITIALS_SIZE);
 
-    if(name == NULL || initials == NULL) {
+    if (name == NULL || initials == NULL) {
         printf("Not enough memory available, exiting.");
         return 1;
     }

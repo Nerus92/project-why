@@ -13,8 +13,11 @@ set(SOURCE_FILES
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 
 include_directories(initials)
+include_directories(passwords)
 
 add_subdirectory(initials)
+add_subdirectory(passwords)
 add_subdirectory(cs50_tests)
 
 target_link_libraries(${EXECUTABLE_NAME} initials)
+target_link_libraries(${EXECUTABLE_NAME} passwords)

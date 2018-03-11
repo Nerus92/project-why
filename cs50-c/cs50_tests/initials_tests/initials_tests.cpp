@@ -7,7 +7,7 @@
 
 extern "C" void extractInitials(char*, const char*);
 
-TEST(initials_tests, test_normal_input) {
+TEST(initialsTests, testNormalInput) {
     char *name = (char*) malloc(sizeof(char) * MAX_NAME_SIZE);
     char *initials = (char*) malloc(sizeof(char) * MAX_INITIALS_SIZE);
     strcpy(name, "Nerus");
@@ -17,7 +17,7 @@ TEST(initials_tests, test_normal_input) {
     free(initials);
 }
 
-TEST(initials_tests, test_dual_words_input) {
+TEST(initialsTests, testDualWordsInput) {
     char *name = (char*) malloc(sizeof(char) * MAX_NAME_SIZE);
     char *initials = (char*) malloc(sizeof(char) * MAX_INITIALS_SIZE);
     strcpy(name, "Nerus Blatia");
@@ -27,7 +27,7 @@ TEST(initials_tests, test_dual_words_input) {
     free(initials);
 }
 
-TEST(initials_tests, test_dual_lowercase_words_input) {
+TEST(initialsTests, testDualLowercaseWordsInput) {
     char *name = (char*) malloc(sizeof(char) * MAX_NAME_SIZE);
     char *initials = (char*) malloc(sizeof(char) * MAX_INITIALS_SIZE);
     strcpy(name, "nerus blatia");
@@ -37,7 +37,7 @@ TEST(initials_tests, test_dual_lowercase_words_input) {
     free(initials);
 }
 
-TEST(initials_tests, test_front_spaces_input) {
+TEST(initialsTests, testFrontSpacesInput) {
     char *name = (char*) malloc(sizeof(char) * MAX_NAME_SIZE);
     char *initials = (char*) malloc(sizeof(char) * MAX_INITIALS_SIZE);
     strcpy(name, "     Nerus Blatia");
@@ -47,7 +47,7 @@ TEST(initials_tests, test_front_spaces_input) {
     free(initials);
 }
 
-TEST(initials_tests, test_multiple_spaces_input) {
+TEST(initialsTests, testMulitpleSpacesInput) {
     char *name = (char*) malloc(sizeof(char) * MAX_NAME_SIZE);
     char *initials = (char*) malloc(sizeof(char) * MAX_INITIALS_SIZE);
     strcpy(name, "   Nerus   Blatia   ");
