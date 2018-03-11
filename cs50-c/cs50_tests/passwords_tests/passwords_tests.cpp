@@ -20,7 +20,7 @@ TEST(passwordsTests, testReadFromFile) {
             "zamyla:50lMLvy/mlPIE\n";
     char* computed_file_content;
 
-    computed_file_content = read_file("/Users/jpchatain/Documents/dev/Perso/project-why/repo/cs50-c/res/passwd");
+    computed_file_content = read_file("../../../cs50-c/res/passwd");
     ASSERT_STREQ(test_file_content, computed_file_content);
     free(computed_file_content);
 }
