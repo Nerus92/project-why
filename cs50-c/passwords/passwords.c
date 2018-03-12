@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include "passwords.h"
+#include <unistd.h>
 
 int run_password(int argc, char **argv) {
     if(argc != 1) {
@@ -70,10 +71,21 @@ long read_file(const char *filepath, char **output) {
     return (long) file_size;
 }
 
+/** Encrypt the password using crypt.
+ *  Takes an optional key as parameter for crypt's salt.
+ * **/
+void encrypt_password(char **encrypted_pwd, char *clear_pwd, char *key) {
+//    if(key != NULL) {
+//        setkey(key);
+//    }
+//    encrypt(clear_pwd, 0);
+    *encrypted_pwd = crypt(clear_pwd, key);
+}
+
 void crack_password(char *encrypted_pwd) {
     char *clear_pwd = malloc(sizeof(char) * 9);
 
-    strcpy(clear_pwd, "TESTPWD");
+//    strcpy(clear_pwd, "TESTPWD");
 
     printf(clear_pwd);
     printf("\n");

@@ -6,7 +6,8 @@
 
 extern "C" int run_password(int argc, char **argv);
 extern "C" long read_file(const char *filepath, char **output);
-extern "C" void crack_passwords(char *encrypted_pwd);
+extern "C" void encrypt_password(char **encrypted_pwd, char *clear_pwd, char *key);
+extern "C" void crack_password(char *encrypted_pwd);
 
 TEST(passwordsTests, testReadFromFile) {
     char test_file_content[200] = "caesar:50zPJlUFIYY0o\n"
@@ -18,7 +19,7 @@ TEST(passwordsTests, testReadFromFile) {
             "skroob:50Bpa7n/23iug\n"
             "tmacwilliam:50WZ/Wy2GdA1Y\n"
             "zamyla:50lMLvy/mlPIE\n";
-    char* computed_file_content;
+    char *computed_file_content;
 
     read_file("../../../cs50-c/res/passwd", &computed_file_content);
     ASSERT_STREQ(test_file_content, computed_file_content);
@@ -39,4 +40,12 @@ TEST(passwordsTests, testShouldReturnSuccessIfOneArgument) {
     argv[0] = pwd;
     ASSERT_EQ(0, run_password(1, argv));
     free(argv);
+}
+
+TEST(passwordsTests, testShouldEncryptWithGivenSalt) {
+    char *pwd = "NerusBlatia";
+    char *key = "aa";
+    char *encrypted_pwd;
+    encrypt_password(&encrypted_pwd, pwd, key);
+    ASSERT_STREQ(encrypted_pwd, "aaElvsibZriXk");
 }
