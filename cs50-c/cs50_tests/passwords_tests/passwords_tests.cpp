@@ -6,7 +6,7 @@
 
 extern "C" int run_password(int argc, char **argv);
 extern "C" long read_file(const char *filepath, char **output);
-extern "C" void encrypt_password(char **encrypted_pwd, char *clear_pwd, char *key);
+extern "C" void encrypt_password(char *clear_pwd, char *key, char **encrypted_pwd);
 extern "C" void crack_password(char *encrypted_pwd);
 
 TEST(passwordsTests, testReadFromFile) {
@@ -27,25 +27,37 @@ TEST(passwordsTests, testReadFromFile) {
 }
 
 TEST(passwordsTests, testShouldReturnFailIfNoArgument) {
-    ASSERT_NE(0, run_password(0, nullptr));
+    char  arg0[] = "programName";
+    char* argv[] = { &arg0[0], NULL };
+    int   argc   = (int)(sizeof(argv) / sizeof(argv[0])) - 1;
+    ASSERT_NE(0, run_password(argc, &argv[0]));
 }
 
 TEST(passwordsTests, testShouldReturnFailIfMoreThanOneArgument) {
-    ASSERT_NE(0, run_password(2, nullptr));
+    char  arg0[] = "programName";
+    char  arg1[] = "testpwd";
+    char  arg2[] = "additionalArg";
+    char* argv[] = { &arg0[0], &arg1[0], &arg2[0], NULL };
+    int   argc   = (int)(sizeof(argv) / sizeof(argv[0])) - 1;
+    ASSERT_NE(0, run_password(argc, &argv[0]));
 }
 
-TEST(passwordsTests, testShouldReturnSuccessIfOneArgument) {
-    char **argv = (char **) malloc(sizeof(char**) * 1);
-    char *pwd = "50zPJlUFIYY0o\n";
-    argv[0] = pwd;
-    ASSERT_EQ(0, run_password(1, argv));
-    free(argv);
-}
+//TEST(passwordsTests, testShouldReturnSuccessIfOneArgument) {
+//    char  arg0[] = "programName";
+//    char  arg1[] = "testpwd";
+//    char* argv[] = { &arg0[0], &arg1[0], NULL };
+//    int   argc   = (int)(sizeof(argv) / sizeof(argv[0])) - 1;
+//    ASSERT_EQ(0, run_password(argc, &argv[0]));
+//}
 
 TEST(passwordsTests, testShouldEncryptWithGivenSalt) {
     char *pwd = "NerusBlatia";
     char *key = "aa";
     char *encrypted_pwd;
-    encrypt_password(&encrypted_pwd, pwd, key);
+    encrypt_password(pwd, key, &encrypted_pwd);
     ASSERT_STREQ(encrypted_pwd, "aaElvsibZriXk");
+}
+
+TEST(passwordsTests, testCrackPassword) {
+    crack_password("aa7/Qve3ZPyvo");
 }

@@ -9,10 +9,10 @@
 #include <unistd.h>
 
 int run_password(int argc, char **argv) {
-    if(argc != 1) {
+    if(argc != 2) {
         return 1;
     }
-    crack_password(argv[0]);
+    crack_password(argv[1]);
     return 0;
 }
 
@@ -71,23 +71,29 @@ long read_file(const char *filepath, char **output) {
     return (long) file_size;
 }
 
-/** Encrypt the password using crypt.
- *  Takes an optional key as parameter for crypt's salt.
- * **/
-void encrypt_password(char **encrypted_pwd, char *clear_pwd, char *key) {
-//    if(key != NULL) {
-//        setkey(key);
-//    }
-//    encrypt(clear_pwd, 0);
+/** Encrypt the password using crypt. **/
+void encrypt_password(char *clear_pwd, char *key, char **encrypted_pwd) {
     *encrypted_pwd = crypt(clear_pwd, key);
 }
 
 void crack_password(char *encrypted_pwd) {
-    char *clear_pwd = malloc(sizeof(char) * 9);
+    char *clear_pwd;
+    char *encrypt_output;
+    char *key = malloc(sizeof(char) * 2);
 
-//    strcpy(clear_pwd, "TESTPWD");
+    clear_pwd = "testpwd";
 
-    printf(clear_pwd);
+    for (int i = 0; i <= 255; ++i) {
+        for (int j = 0; j <= 255; ++j) {
+            sprintf(key, "%c%c\n", (char) i, (char) j);
+            encrypt_password(clear_pwd, key, &encrypt_output);
+            if(strcmp(encrypted_pwd, encrypt_output) == 0) {
+                printf("clear: %s, salt: %s", clear_pwd, key);
+                break;
+            }
+        }
+    }
+
     printf("\n");
-    free(clear_pwd);
+    free(key);
 }
