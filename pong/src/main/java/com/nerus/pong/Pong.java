@@ -1,5 +1,7 @@
 package com.nerus.pong;
 
+import java.awt.*;
+
 public class Pong {
 
     public static final int MIN_HEIGHT = 256;
@@ -15,7 +17,11 @@ public class Pong {
     private int height = DEFAULT_HEIGHT;
     private int width = DEFAULT_WIDTH;
 
-    public Pong() {}
+    private Point ball;
+
+    public Pong() {
+        ball = new Point(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
+    }
 
     public Pong(int height, int width) {
         if (height < MIN_HEIGHT) {
@@ -25,19 +31,27 @@ public class Pong {
         }
         this.height = height;
         this.width = width;
+        ball = new Point(width / 2, height / 2);
+    }
+
+    public void setBallPosition(int x, int y) {
+        ball.x = x;
+        ball.y = y;
     }
 
     public int getBallYPosition() {
-        return DEFAULT_HEIGHT / 2;
+        return ball.y;
     }
 
     public int getBallXPosition() {
-        return DEFAULT_WIDTH / 2;
+        return ball.x;
     }
 
     public int getBallXVelocity() {
         return DEFAULT_VELOCITY;
     }
+
+    public int getBallYVelocity() { return DEFAULT_VELOCITY; }
 
     public int getHeight() {
         return height;

@@ -50,15 +50,36 @@ public class PongTest {
     @Test
     public void testDefaultBallPosition() {
         Pong pong = new Pong();
-        assertAll("Ball Properties",
+        assertAll("Ball Position",
             () -> assertEquals(Pong.DEFAULT_HEIGHT / 2, pong.getBallYPosition()),
             () -> assertEquals(Pong.DEFAULT_WIDTH / 2, pong.getBallXPosition()));
     }
 
     @Test
+    public void testInitialBallPositionInCustomPong() {
+        int height = 456;
+        int width = 789;
+        Pong pong = new Pong(height, width);
+        assertAll("Ball Position",
+                () -> assertEquals(height / 2, pong.getBallYPosition()),
+                () -> assertEquals(width / 2, pong.getBallXPosition()));
+    }
+
+    @Test
     public void testDefaultBallVelocity() {
         Pong pong = new Pong();
-        assertThat(Arrays.asList(Pong.DEFAULT_VELOCITY, -Pong.DEFAULT_VELOCITY), hasItem(pong.getBallXVelocity()));
+        assertAll("Ball Velocity",
+                () -> assertThat(Arrays.asList(Pong.DEFAULT_VELOCITY, -Pong.DEFAULT_VELOCITY), hasItem(pong.getBallXVelocity())),
+                () -> assertThat(Arrays.asList(Pong.DEFAULT_VELOCITY, -Pong.DEFAULT_VELOCITY), hasItem(pong.getBallYVelocity())));
+    }
+
+    @Test
+    public void testBallCanBeSetInPosition() {
+        Pong pong = new Pong();
+        pong.setBallPosition(Pong.DEFAULT_WIDTH / 2, Pong.DEFAULT_HEIGHT - 1);
+        assertAll("Ball Position",
+                () -> assertEquals(Pong.DEFAULT_HEIGHT - 1, pong.getBallYPosition()),
+                () -> assertEquals(Pong.DEFAULT_WIDTH / 2, pong.getBallXPosition()));
     }
 
 }
