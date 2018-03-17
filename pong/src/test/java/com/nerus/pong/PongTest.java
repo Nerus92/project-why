@@ -2,6 +2,13 @@ package com.nerus.pong;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -51,8 +58,7 @@ public class PongTest {
     @Test
     public void testDefaultBallVelocity() {
         Pong pong = new Pong();
-        assertEquals(Pong.DEFAULT_VELOCITY | -Pong.DEFAULT_VELOCITY, pong.getBallXVelocity());
-        assertThat([Pong.DEFAULT_VELOCITY, -Pong.DEFAULT_VELOCITY], contains(pong.getBallXVelocity()));
+        assertThat(Arrays.asList(Pong.DEFAULT_VELOCITY, -Pong.DEFAULT_VELOCITY), hasItem(pong.getBallXVelocity()));
     }
 
 }
