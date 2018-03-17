@@ -10,6 +10,8 @@ public class Pong {
     public static final int DEFAULT_WIDTH = MIN_WIDTH;
     public static final String WIDTH_MINIMUM_EXCEPTION = String.format("%s creation failed, width should be equal or superior to %d", Pong.class, MIN_WIDTH);
 
+    public static final int DEFAULT_VELOCITY = 7;
+
     private int height = DEFAULT_HEIGHT;
     private int width = DEFAULT_WIDTH;
 
@@ -31,6 +33,10 @@ public class Pong {
 
     public int getBallXPosition() {
         return DEFAULT_WIDTH / 2;
+    }
+
+    public int getBallXVelocity() {
+        return DEFAULT_VELOCITY;
     }
 
     public int getHeight() {

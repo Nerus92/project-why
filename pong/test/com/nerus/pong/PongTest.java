@@ -1,8 +1,8 @@
 package com.nerus.pong;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -11,8 +11,9 @@ public class PongTest {
     @Test
     public void testDefaultPongCreation() {
         Pong pong = new Pong();
-        assertEquals(Pong.DEFAULT_HEIGHT, pong.getHeight());
-        assertEquals(Pong.DEFAULT_WIDTH, pong.getWidth());
+        assertAll("Area Properties",
+            () -> assertEquals(Pong.DEFAULT_HEIGHT, pong.getHeight()),
+            () -> assertEquals(Pong.DEFAULT_WIDTH, pong.getWidth()));
     }
 
     @Test
@@ -20,8 +21,9 @@ public class PongTest {
         int height = 456;
         int width = 789;
         Pong pong = new Pong(height, width);
-        assertEquals(height, pong.getHeight());
-        assertEquals(width, pong.getWidth());
+        assertAll("Area Properties",
+            () -> assertEquals(height, pong.getHeight()),
+            () -> assertEquals(width, pong.getWidth()));
     }
 
     @Test
@@ -41,8 +43,16 @@ public class PongTest {
     @Test
     public void testDefaultBallPosition() {
         Pong pong = new Pong();
-        assertEquals(Pong.DEFAULT_HEIGHT / 2, pong.getBallYPosition());
-        assertEquals(Pong.DEFAULT_WIDTH / 2, pong.getBallXPosition());
+        assertAll("Ball Properties",
+            () -> assertEquals(Pong.DEFAULT_HEIGHT / 2, pong.getBallYPosition()),
+            () -> assertEquals(Pong.DEFAULT_WIDTH / 2, pong.getBallXPosition()));
+    }
+
+    @Test
+    public void testDefaultBallVelocity() {
+        Pong pong = new Pong();
+        assertEquals(Pong.DEFAULT_VELOCITY | -Pong.DEFAULT_VELOCITY, pong.getBallXVelocity());
+        assertThat([Pong.DEFAULT_VELOCITY, -Pong.DEFAULT_VELOCITY], contains(pong.getBallXVelocity()));
     }
 
 }
