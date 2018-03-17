@@ -1,3 +1,5 @@
 .idea
 cmake-build-debug
 *.pyc
+*.iml
+pong/out/*
