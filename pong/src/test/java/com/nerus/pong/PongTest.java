@@ -3,15 +3,11 @@ package com.nerus.pong;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PongTest {
 
@@ -37,14 +33,14 @@ public class PongTest {
     public void testTooSmallPongHeightThrowsException() {
         int smallHeight = Pong.MIN_HEIGHT - 1;
         int okWidth = Pong.MIN_WIDTH;
-        assertThrows(IllegalArgumentException.class, () -> new Pong(smallHeight, okWidth), Pong.HEIGHT_MINIMUM_EXCEPTION);
+        assertThrows(IllegalArgumentException.class, () -> new Pong(smallHeight, okWidth));
     }
 
     @Test
     public void testTooSmallPongWidthThrowsException() {
         int okHeight = Pong.MIN_HEIGHT;
         int smallWidth = Pong.MIN_WIDTH - 1;
-        assertThrows(IllegalArgumentException.class, () -> new Pong(okHeight, smallWidth), Pong.WIDTH_MINIMUM_EXCEPTION);
+        assertThrows(IllegalArgumentException.class, () -> new Pong(okHeight, smallWidth));
     }
 
     @Test
@@ -75,11 +71,33 @@ public class PongTest {
 
     @Test
     public void testBallCanBeSetInPosition() {
+        Random random = new Random();
         Pong pong = new Pong();
-        pong.setBallPosition(Pong.DEFAULT_WIDTH / 2, Pong.DEFAULT_HEIGHT - 1);
+        int x = random.nextInt(Pong.DEFAULT_WIDTH);
+        int y = random.nextInt(Pong.DEFAULT_HEIGHT);
+        pong.setBallPosition(x, y);
         assertAll("Ball Position",
-                () -> assertEquals(Pong.DEFAULT_HEIGHT - 1, pong.getBallYPosition()),
-                () -> assertEquals(Pong.DEFAULT_WIDTH / 2, pong.getBallXPosition()));
+                () -> assertEquals(y, pong.getBallYPosition()),
+                () -> assertEquals(x, pong.getBallXPosition()));
+    }
+
+    @Test
+    public void testBallCannotBeSetInInvalidPosition() {
+        Pong pong = new Pong();
+        assertAll("Ball Invalid Position",
+                () -> assertThrows(IllegalArgumentException.class, () -> pong.setBallPosition(-1, 0)),
+                () -> assertThrows(IllegalArgumentException.class, () -> pong.setBallPosition(0, -1)),
+                () -> assertThrows(IllegalArgumentException.class, () -> pong.setBallPosition(Pong.MIN_WIDTH, 0)),
+                () -> assertThrows(IllegalArgumentException.class, () -> pong.setBallPosition(0, Pong.MIN_HEIGHT)));
+    }
+
+    @Test
+    public void testBallBouncesOffBottom() {
+        Pong pong = new Pong();
+        pong.setBallPosition(Pong.MIN_WIDTH / 2, Pong.MIN_HEIGHT - 1);
+        pong.setBallVelocity(Pong.DEFAULT_VELOCITY, Pong.DEFAULT_VELOCITY);
+        pong.update();
+
     }
 
 }
