@@ -19,10 +19,19 @@ public class Pong {
     private int height = DEFAULT_HEIGHT;
     private int width = DEFAULT_WIDTH;
 
-    private class Ball extends Point {
+    protected class Ball extends Point {
+
+        public int dx, dy;
 
         public Ball(int x, int y) {
             super(x, y);
+            dx = DEFAULT_VELOCITY;
+            dy = DEFAULT_VELOCITY;
+        }
+
+        public void update() {
+            x += dx;
+            y += dy;
         }
 
     }
@@ -45,7 +54,7 @@ public class Pong {
     }
 
     public void update() {
-
+        ball.update();
     }
 
     public void setBallPosition(int x, int y) {
@@ -59,7 +68,8 @@ public class Pong {
     }
 
     public void setBallVelocity(int dx, int dy) {
-
+        ball.dx = dx;
+        ball.dy = dy;
     }
 
     public int getBallYPosition() {
@@ -71,10 +81,12 @@ public class Pong {
     }
 
     public int getBallXVelocity() {
-        return DEFAULT_VELOCITY;
+        return ball.dx;
     }
 
-    public int getBallYVelocity() { return DEFAULT_VELOCITY; }
+    public int getBallYVelocity() {
+        return ball.dy;
+    }
 
     public int getHeight() {
         return height;
