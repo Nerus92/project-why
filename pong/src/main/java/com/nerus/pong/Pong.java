@@ -4,17 +4,17 @@ import java.awt.*;
 
 public class Pong {
 
-    public static final int MIN_HEIGHT = 256;
+    protected static final int MIN_HEIGHT = 256;
     public static final int DEFAULT_HEIGHT = MIN_HEIGHT;
     public static final String HEIGHT_MINIMUM_EXCEPTION = "%s creation failed, height should be equals or superior to %d";
     public static final String INVALID_Y_POSITION = "Ball position setting failed, Y should be within [0, %d]";
 
-    public static final int MIN_WIDTH = 512;
+    protected static final int MIN_WIDTH = 512;
     public static final int DEFAULT_WIDTH = MIN_WIDTH;
     public static final String WIDTH_MINIMUM_EXCEPTION = "%s creation failed, width should be equal or superior to %d";
     public static final String INVALID_X_POSITION = "Ball position setting failed, X should be within [0, %d]";
 
-    public static final int DEFAULT_VELOCITY = 7;
+    protected static final int DEFAULT_VELOCITY = 7;
 
     private int height = DEFAULT_HEIGHT;
     private int width = DEFAULT_WIDTH;
@@ -32,6 +32,21 @@ public class Pong {
         public void update() {
             x += dx;
             y += dy;
+
+            if (y >= height) {
+                dy = -dy;
+                y -= 2 * (y - height + 1);
+            } else if (y < 0) {
+                dy = -dy;
+                y += -2 * y;
+            }
+            if (x >= width) {
+                dx = -dx;
+                x -= 2 * (x - width + 1);
+            } else if (x < 0) {
+                dx = -dx;
+                x += -2 * x;
+            }
         }
 
     }
