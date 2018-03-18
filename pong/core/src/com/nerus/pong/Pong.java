@@ -14,6 +14,8 @@ public class Pong {
     public static final String WIDTH_MINIMUM_EXCEPTION = "%s creation failed, width should be equal or superior to %d";
     public static final String INVALID_X_POSITION = "Ball position setting failed, X should be within [0, %d]";
 
+    protected static final int PADDLE_HEIGHT = 28;
+
     protected static final int BALL_VERTICAL_SIZE = 5;
     protected static final int BALL_HORIZONTAL_SIZE = 6;
     protected static final int DEFAULT_VELOCITY = 7;
@@ -53,10 +55,19 @@ public class Pong {
 
     }
 
+    protected class Paddle extends Point {
+
+        public Paddle(int x, int y) {
+            super(x, y);
+        }
+
+    }
+
     private Ball ball;
+    private Paddle[] paddles;
 
     public Pong() {
-        ball = new Ball(DEFAULT_WIDTH / 2, DEFAULT_HEIGHT / 2);
+        initElements();
     }
 
     public Pong(int height, int width) {
@@ -67,7 +78,14 @@ public class Pong {
         }
         this.height = height;
         this.width = width;
+        initElements();
+    }
+
+    private void initElements() {
         ball = new Ball(width / 2, height / 2);
+        paddles = new Paddle[2];
+        paddles[0] = new Paddle(width / 10, (height - PADDLE_HEIGHT) / 2);
+        paddles[1] = new Paddle(9 * (width / 10), (height - PADDLE_HEIGHT) / 2);
     }
 
     public void update() {
@@ -103,6 +121,14 @@ public class Pong {
 
     public int getBallYVelocity() {
         return ball.dy;
+    }
+
+    public int getPaddleXPosition(int index) {
+        return paddles[index].x;
+    }
+
+    public int getPaddleYPosition(int index) {
+        return paddles[index].y;
     }
 
     public int getHeight() {

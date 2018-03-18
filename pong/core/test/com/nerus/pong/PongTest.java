@@ -259,4 +259,15 @@ class PongTest {
         return stream;
     }
 
+    @Test
+    void testDefaultPaddlePositions() {
+        Pong pong = new Pong();
+        assertAll("Paddles Position",
+                () -> assertAll("Paddle 1 Position",
+                        () -> assertEquals(pong.getWidth() / 10, pong.getPaddleXPosition(0)),
+                        () -> assertEquals((pong.getHeight() - Pong.PADDLE_HEIGHT) / 2, pong.getPaddleYPosition(0))),
+                () -> assertAll("Paddle 2 Position",
+                        () -> assertEquals(9 * (pong.getWidth() / 10), pong.getPaddleXPosition(1))));
+    }
+
 }
