@@ -128,14 +128,14 @@ class PongTest {
     }
 
     @Test
-    void testBallBouncesAtBottomWhenTouching() {
+    void testBallBouncesAtTopWhenTouching() {
         Pong pong = new Pong();
         pong.setBallPosition(Pong.DEFAULT_WIDTH / 2, Pong.DEFAULT_HEIGHT - 1);
         pong.setBallVelocity(Pong.DEFAULT_VELOCITY, Pong.DEFAULT_VELOCITY);
         pong.update();
         assertAll("Ball Properties",
                 () -> assertAll("Ball Position",
-                        () -> assertEquals((Pong.DEFAULT_HEIGHT - 1) + pong.getBallYVelocity(), pong.getBallYPosition()),
+                        () -> assertEquals((Pong.DEFAULT_HEIGHT - 1) - Pong.DEFAULT_VELOCITY, pong.getBallYPosition()),
                         () -> assertEquals((Pong.DEFAULT_WIDTH / 2) + Pong.DEFAULT_VELOCITY, pong.getBallXPosition())),
                 () -> assertAll("Ball Velocity",
                         () -> assertEquals(-Pong.DEFAULT_VELOCITY, pong.getBallYVelocity()),
@@ -143,14 +143,14 @@ class PongTest {
     }
 
     @Test
-    void testBallBouncesAtTopWhenTouching() {
+    void testBallBouncesAtBottomWhenTouching() {
         Pong pong = new Pong();
         pong.setBallPosition(Pong.DEFAULT_WIDTH / 2, 0);
         pong.setBallVelocity(Pong.DEFAULT_VELOCITY, -Pong.DEFAULT_VELOCITY);
         pong.update();
         assertAll("Ball Properties",
                 () -> assertAll("Ball Position",
-                        () -> assertEquals(pong.getBallYVelocity(), pong.getBallYPosition()),
+                        () -> assertEquals(Pong.DEFAULT_VELOCITY, pong.getBallYPosition()),
                         () -> assertEquals((Pong.DEFAULT_WIDTH / 2) + Pong.DEFAULT_VELOCITY, pong.getBallXPosition())),
                 () -> assertAll("Ball Velocity",
                         () -> assertEquals(Pong.DEFAULT_VELOCITY, pong.getBallYVelocity()),
@@ -189,14 +189,14 @@ class PongTest {
 
     @ParameterizedTest
     @MethodSource(names = {"ballOffsetProvider"})
-    void testBallBouncesAtBottomWhenOffset(int offset) {
+    void testBallBouncesAtTopWhenOffset(int offset) {
         Pong pong = new Pong();
         pong.setBallVelocity(Pong.DEFAULT_VELOCITY, Pong.DEFAULT_VELOCITY);
         pong.setBallPosition(Pong.DEFAULT_WIDTH / 2, (Pong.DEFAULT_HEIGHT - 1) - offset);
         pong.update();
         assertAll("Ball Properties",
                 () -> assertAll("Ball Position",
-                        () -> assertEquals((Pong.DEFAULT_HEIGHT - 1) + pong.getBallYVelocity() + offset, pong.getBallYPosition()),
+                        () -> assertEquals((Pong.DEFAULT_HEIGHT - 1) - Pong.DEFAULT_VELOCITY + offset, pong.getBallYPosition()),
                         () -> assertEquals((Pong.DEFAULT_WIDTH / 2) + Pong.DEFAULT_VELOCITY, pong.getBallXPosition())),
                 () -> assertAll("Ball Velocity",
                         () -> assertEquals(-Pong.DEFAULT_VELOCITY, pong.getBallYVelocity()),
@@ -205,14 +205,14 @@ class PongTest {
 
     @ParameterizedTest
     @MethodSource(names = {"ballOffsetProvider"})
-    void testBallBouncesAtTopWhenOffset(int offset) {
+    void testBallBouncesAtBottomWhenOffset(int offset) {
         Pong pong = new Pong();
         pong.setBallVelocity(Pong.DEFAULT_VELOCITY, -Pong.DEFAULT_VELOCITY);
         pong.setBallPosition(Pong.DEFAULT_WIDTH / 2, offset);
         pong.update();
         assertAll("Ball Properties",
                 () -> assertAll("Ball Position",
-                        () -> assertEquals(pong.getBallYVelocity() - offset, pong.getBallYPosition()),
+                        () -> assertEquals(Pong.DEFAULT_VELOCITY - offset, pong.getBallYPosition()),
                         () -> assertEquals((Pong.DEFAULT_WIDTH / 2) + Pong.DEFAULT_VELOCITY, pong.getBallXPosition())),
                 () -> assertAll("Ball Velocity",
                         () -> assertEquals(Pong.DEFAULT_VELOCITY, pong.getBallYVelocity()),
@@ -228,7 +228,7 @@ class PongTest {
         pong.update();
         assertAll("Ball Properties",
                 () -> assertAll("Ball Position",
-                        () -> assertEquals((Pong.DEFAULT_WIDTH - 1) + pong.getBallXVelocity() + offset, pong.getBallXPosition()),
+                        () -> assertEquals((Pong.DEFAULT_WIDTH - 1) - Pong.DEFAULT_VELOCITY + offset, pong.getBallXPosition()),
                         () -> assertEquals((Pong.DEFAULT_HEIGHT / 2) + Pong.DEFAULT_VELOCITY, pong.getBallYPosition())),
                 () -> assertAll("Ball Velocity",
                         () -> assertEquals(Pong.DEFAULT_VELOCITY, pong.getBallYVelocity()),
@@ -244,7 +244,7 @@ class PongTest {
         pong.update();
         assertAll("Ball Properties",
                 () -> assertAll("Ball Position",
-                        () -> assertEquals(pong.getBallXVelocity() - offset, pong.getBallXPosition()),
+                        () -> assertEquals(Pong.DEFAULT_VELOCITY - offset, pong.getBallXPosition()),
                         () -> assertEquals((Pong.DEFAULT_HEIGHT / 2) + Pong.DEFAULT_VELOCITY, pong.getBallYPosition())),
                 () -> assertAll("Ball Velocity",
                         () -> assertEquals(Pong.DEFAULT_VELOCITY, pong.getBallYVelocity()),
