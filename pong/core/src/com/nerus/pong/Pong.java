@@ -35,16 +35,16 @@ public class Pong {
             x += dx;
             y += dy;
 
-            if (y >= (height - BALL_VERTICAL_SIZE)) {
+            if (y > (height - BALL_VERTICAL_SIZE)) {
                 dy = -dy;
-                y -= 2 * (y - (height - BALL_VERTICAL_SIZE) + 1);
+                y -= 2 * (y - (height - BALL_VERTICAL_SIZE));
             } else if (y < 0) {
                 dy = -dy;
                 y += -2 * y;
             }
-            if (x >= (width - BALL_HORIZONTAL_SIZE)) {
+            if (x > (width - BALL_HORIZONTAL_SIZE)) {
                 dx = -dx;
-                x -= 2 * (x - (width - BALL_HORIZONTAL_SIZE) + 1);
+                x -= 2 * (x - (width - BALL_HORIZONTAL_SIZE));
             } else if (x < 0) {
                 dx = -dx;
                 x += -2 * x;
