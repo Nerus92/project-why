@@ -14,6 +14,8 @@ public class Pong {
     public static final String WIDTH_MINIMUM_EXCEPTION = "%s creation failed, width should be equal or superior to %d";
     public static final String INVALID_X_POSITION = "Ball position setting failed, X should be within [0, %d]";
 
+    protected static final int BALL_VERTICAL_SIZE = 5;
+    protected static final int BALL_HORIZONTAL_SIZE = 6;
     protected static final int DEFAULT_VELOCITY = 7;
 
     private int height = DEFAULT_HEIGHT;
@@ -33,9 +35,9 @@ public class Pong {
             x += dx;
             y += dy;
 
-            if (y >= height) {
+            if (y >= (height - BALL_VERTICAL_SIZE)) {
                 dy = -dy;
-                y -= 2 * (y - height + 1);
+                y -= 2 * (y - (height - BALL_VERTICAL_SIZE) + 1);
             } else if (y < 0) {
                 dy = -dy;
                 y += -2 * y;
