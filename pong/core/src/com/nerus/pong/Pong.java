@@ -42,9 +42,9 @@ public class Pong {
                 dy = -dy;
                 y += -2 * y;
             }
-            if (x >= width) {
+            if (x >= (width - BALL_HORIZONTAL_SIZE)) {
                 dx = -dx;
-                x -= 2 * (x - width + 1);
+                x -= 2 * (x - (width - BALL_HORIZONTAL_SIZE) + 1);
             } else if (x < 0) {
                 dx = -dx;
                 x += -2 * x;
