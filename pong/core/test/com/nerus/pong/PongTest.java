@@ -374,4 +374,14 @@ class PongTest {
         assertEquals(yBottomPosition, pong.getPaddleYPosition(0));
     }
 
+    @Test
+    void testBallBouncesOffPaddle() {
+        Pong pong = new Pong();
+        pong.setPaddlePosition(0, 0, 0);
+        pong.setBallPosition(Pong.PADDLE_WIDTH, Pong.PADDLE_HEIGHT / 2);
+        pong.setBallVelocity(-Pong.DEFAULT_VELOCITY, 0);
+        pong.update();
+        assertEquals(Pong.PADDLE_WIDTH + Pong.DEFAULT_VELOCITY, pong.getBallXPosition());
+    }
+
 }
